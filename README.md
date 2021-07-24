@@ -1,5 +1,7 @@
 # spotify-library
-Web application for saving and exporting user's Spotify playlists.
+### Web application for saving and exporting user's Spotify playlists.
+
+<p> ---------------------------------------- </p>
 
 <p> Justin Berg - Frontend Developer </p>
 <p> Trevon Greenwood - Frontend Developer </p>
