@@ -5,6 +5,8 @@ const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
+const path = require('path');
+const exphbs = require('express-handlebars');
 
 var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
 var playlistID = testPlaylistURL.slice(34, 56)
@@ -17,6 +19,10 @@ require('dotenv').config()
 // Setting Handlebars as the default template engine.
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+const publicPath = path.resolve(__dirname, "public");
+
+app.use(express.static(publicPath));
 
 // declaring keys
 const redirectUri = process.env.REDIRECT_URI;
@@ -46,7 +52,7 @@ const spotifyApi = new SpotifyWebApi({
 
 // HOMEPAGE
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.render('landing');
 })
 
 // LOGIN PAGE
