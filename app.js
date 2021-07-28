@@ -117,8 +117,25 @@ app.get('/playlist', function (req, res) {
 
     spotifyApi.getPlaylist(playlistID)
         .then(function (data) {
-            console.log('Some information about this playlist', data.body);
-            res.send(data.body.tracks.items[0].track.name);
+
+            let playlistArray = []
+
+            let playlistTrackAmount = data.body.tracks.items;
+            // console.log(playlistTrackAmount.length);
+
+            for (var i = 0; i < playlistTrackAmount.length; i++) {
+
+                let playlistTracksTitle = data.body.tracks.items[i].track.name;
+
+                let playlistTracksArtist = data.body.tracks.items[i].track.album.artists[0].name;
+
+                let playlistData = playlistTracksTitle + " - " + playlistTracksArtist;
+
+                playlistArray.push(playlistData)
+            }
+
+            res.send(playlistArray);
+
         }, function (err) {
             console.log('Something went wrong!', err);
         });
