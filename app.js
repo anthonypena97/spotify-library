@@ -111,6 +111,20 @@ app.get('/elvis-albums', function (req, res) {
     );
 });
 
+// PLAYLIST DATA TEST
+app.get('/playlist', function (req, res) {
+    // Get a User ' albums
+
+    spotifyApi.getPlaylist(playlistID)
+        .then(function (data) {
+            console.log('Some information about this playlist', data.body);
+            res.send(data.body.tracks.items[0].track.name);
+        }, function (err) {
+            console.log('Something went wrong!', err);
+        });
+
+});
+
 // SERVER LISTEN
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
