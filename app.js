@@ -105,20 +105,35 @@ app.get('/callback', (req, res) => {
         });
 });
 
-// ELVIS DATA TEST
-app.get('/elvis-albums', function (req, res) {
-    // Get Elvis' albums
+// PLAYLIST DATA TEST
+app.get('/playlist', function (req, res) {
+    // Get a User ' albums
 
-    spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', { limit: 1 }).then(
-        function (data) {
-            console.log('Artist albums', data.body);
-            console.log('Album', data.body.items);
-            res.send(data.body.items[0].name);
-        },
-        function (err) {
-            console.error(err);
-        }
-    );
+    spotifyApi.getPlaylist(playlistID)
+        .then(function (data) {
+
+            let playlistArray = []
+
+            let playlistTrackAmount = data.body.tracks.items;
+            // console.log(playlistTrackAmount.length);
+
+            for (var i = 0; i < playlistTrackAmount.length; i++) {
+
+                let playlistTracksTitle = data.body.tracks.items[i].track.name;
+
+                let playlistTracksArtist = data.body.tracks.items[i].track.album.artists[0].name;
+
+                let playlistData = playlistTracksTitle + " - " + playlistTracksArtist;
+
+                playlistArray.push(playlistData)
+            }
+
+            res.send(playlistArray);
+
+        }, function (err) {
+            console.log('Something went wrong!', err);
+        });
+
 });
 
 // SERVER LISTEN
