@@ -14,6 +14,10 @@ const app = express()
 // .env file access
 require('dotenv').config()
 
+// Setting Handlebars as the default template engine.
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
 // declaring keys
 const redirectUri = process.env.REDIRECT_URI;
 const clientId = process.env.CLIENT_ID;
