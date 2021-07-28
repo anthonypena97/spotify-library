@@ -5,6 +5,7 @@ const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
+const sequelize = require('./config/connections')
 
 var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
 var playlistID = testPlaylistURL.slice(34, 56)
@@ -21,7 +22,7 @@ const clientSecret = process.env.CLIENT_SECRET;
 const port = process.env.PORT;
 
 // state key generation
-var generateRandomString = function (length) {
+var generateRandomString = function(length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -46,7 +47,7 @@ app.get('/', (req, res) => {
 })
 
 // LOGIN PAGE
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
 
@@ -80,7 +81,7 @@ app.get('/callback', (req, res) => {
             );
             res.send('Success! You can now close the window.');
 
-            setInterval(async () => {
+            setInterval(async() => {
                 const data = await spotifyApi.refreshAccessToken();
                 const access_token = data.body['access_token'];
 
@@ -96,22 +97,24 @@ app.get('/callback', (req, res) => {
 });
 
 // ELVIS DATA TEST
-app.get('/elvis-albums', function (req, res) {
+app.get('/elvis-albums', function(req, res) {
     // Get Elvis' albums
 
     spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', { limit: 1 }).then(
-        function (data) {
+        function(data) {
             console.log('Artist albums', data.body);
             console.log('Album', data.body.items);
             res.send(data.body.items[0].name);
         },
-        function (err) {
+        function(err) {
             console.error(err);
         }
     );
 });
 
 // SERVER LISTEN
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+sequelize.sync({ force: false }).then(() => {
+    app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`)
+    });
+});
