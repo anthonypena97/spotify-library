@@ -1,13 +1,18 @@
+// USING THE SPOTIFY WEB API NODE PACKAGE FOR COMPILED METHODS
+// 
+// 
+const SpotifyWebApi = require('spotify-web-api-node');
+
 // requirements
-const express = require('express'); // Express web server framework
-const request = require('request'); // "Request" library
+const express = require('express');
+const request = require('request');
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-const SpotifyWebApi = require('spotify-web-api-node');
 const path = require('path');
 const exphbs = require('express-handlebars');
 
+// hardcoded url for testing
 var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
 var playlistID = testPlaylistURL.slice(34, 56)
 
@@ -16,12 +21,12 @@ const app = express()
 // .env file access
 require('dotenv').config()
 
-// Setting Handlebars as the default template engine.
+// setting Handlebars as the default template engine.
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// path setting
 const publicPath = path.resolve(__dirname, "public");
-
 app.use(express.static(publicPath));
 
 // declaring keys
@@ -44,6 +49,7 @@ var generateRandomString = function (length) {
 const scopes = ['user-read-private', 'user-read-email']
 var state = generateRandomString(16);
 
+// instance of spotify web api node - authorization setting
 const spotifyApi = new SpotifyWebApi({
     redirectUri: redirectUri,
     clientId: clientId,
@@ -55,9 +61,10 @@ app.get('/', (req, res) => {
     res.render('landing');
 })
 
-// LOGIN PAGE
-app.get('/login', function (req, res) {
+// SPOTIFY AUTHENTICATION
+app.get('/spotify-auth', function (req, res) {
     res.redirect(spotifyApi.createAuthorizeURL(scopes));
+
 });
 
 // CALLBACK PAGE
@@ -88,7 +95,9 @@ app.get('/callback', (req, res) => {
             console.log(
                 `Sucessfully retreived access token. Expires in ${expires_in} s.`
             );
-            res.send('Success! You can now close the window.');
+            // res.send('Success! You can now close the window.');
+
+            res.redirect('/playlist-return-test');
 
             setInterval(async () => {
                 const data = await spotifyApi.refreshAccessToken();
@@ -98,6 +107,7 @@ app.get('/callback', (req, res) => {
                 console.log('access_token:', access_token);
                 spotifyApi.setAccessToken(access_token);
             }, expires_in / 2 * 1000);
+
         })
         .catch(error => {
             console.error('Error getting Tokens:', error);
@@ -105,38 +115,77 @@ app.get('/callback', (req, res) => {
         });
 });
 
-// PLAYLIST DATA TEST
-app.get('/playlist', function (req, res) {
-    // Get a User ' albums
+// PLAYLIST DATA TEST PAGE
+app.get('/playlist-return-test', function (req, res) {
 
+    // spotify api get playlist call
     spotifyApi.getPlaylist(playlistID)
         .then(function (data) {
 
-            let playlistArray = []
-
+            let infoArray = [];
+            let tracksArray = [];
+            let bodyArray = [];
             let playlistTrackAmount = data.body.tracks.items;
-            // console.log(playlistTrackAmount.length);
+            let playlistName = data.body.name;
+            let playlistArtworkURL = data.body.images[0].url;
+
+
+            let body = {
+                body: bodyArray
+            };
+
+            let playlistObj = {
+                info: infoArray,
+                tracks: tracksArray
+            };
+
+            let infoObj = {
+                name: playlistName,
+                artwork: playlistArtworkURL
+            };
 
             for (var i = 0; i < playlistTrackAmount.length; i++) {
 
-                let playlistTracksTitle = data.body.tracks.items[i].track.name;
+                let track = {
+                    id: i,
+                    author: 'author',
+                    title: 'title',
+                }
 
-                let playlistTracksArtist = data.body.tracks.items[i].track.album.artists[0].name;
+                track.author = data.body.tracks.items[i].track.name;
 
-                let playlistData = playlistTracksTitle + " - " + playlistTracksArtist;
+                track.title = data.body.tracks.items[i].track.album.artists[0].name;
 
-                playlistArray.push(playlistData)
-            }
+                playlistObj.tracks.push(track);
+            };
 
-            res.send(playlistArray);
+            playlistObj.info.push(infoObj);
+
+            bodyArray.push(playlistObj);
+
+            res.send(body);
 
         }, function (err) {
             console.log('Something went wrong!', err);
         });
+});
+
+// CREATE ACCOUNT PAGE
+app.get('/create-account', function (req, res) {
+
+});
+
+// PLAYLIST LIBRARY PAGE
+app.get('/playlist-library', function (req, res) {
+
+});
+
+// PLAYLIST DISPLAY PAGE
+app.get('/playlist-display', function (req, res) {
 
 });
 
 // SERVER LISTEN
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-})
+});
