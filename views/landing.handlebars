@@ -1,8 +1,29 @@
-<nav class='navbar'>
-    <h1>Offline Beats</h1>
-    <h4>
-        <a href='https://github.com/greenwoodtrevon?tab=repositories'>Login</a>
-    </h4>
+<nav class="navbar">
+  <h1>Offline Beats</h1>
+  <h4>
+    <button id="login">Login</button>
+  </h4>
+
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+
+      
+
+      <form action="/">
+      <h2>Login Page</h2>
+        <label for="Uname">Username:</label><br />
+        <input type="text" id="Uname" name="Uname" value="Username" /><br />
+        <label for="password">Password:</label><br />
+        <input type="text" id="password" name="Password" value="password" /><br
+        /><br />
+        <input id="subbmit" type="submit" value="Submit" />
+      </form>
+    </div>
+
+  </div>
+
 </nav>
 
 <div class='container intro'>
@@ -14,5 +35,5 @@
         the button below to login to spotify and see your playlists!
     </h5>
     <!-- Need to be logged in first before you see this button -->
-    <button class='seePlaylists'>See My Playlists!</button>
+    <button id="seePlaylists-btn" class='seePlaylists'>See My Playlists!</button>
 </div>
