@@ -5,12 +5,12 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 // requirements
 const express = require('express');
+const path = require('path');
+const exphbs = require('express-handlebars');
 const request = require('request');
 const cors = require('cors');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-const path = require('path');
-const exphbs = require('express-handlebars');
 
 // hardcoded url for testing
 var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
