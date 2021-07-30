@@ -1,49 +1,8 @@
-// requirements
-const express = require('express'); // Express web server framework
-const request = require('request'); // "Request" library
-const cors = require('cors');
-const querystring = require('querystring');
-const cookieParser = require('cookie-parser');
-const SpotifyWebApi = require('spotify-web-api-node');
-const path = require('path');
-const exphbs = require('express-handlebars');
-const sequelize = require('./config/connections')
-var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
-var playlistID = testPlaylistURL.slice(34, 56)
+const router = require("express").Router();
+const { Playlist, PlaylistSongs } = require('../../models')
+
 let playlistArray = []
 
-const app = express()
-
-// .env file access
-require('dotenv').config()
-
-// Setting Handlebars as the default template engine.
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-
-const publicPath = path.resolve(__dirname, "public");
-
-app.use(express.static(publicPath));
-
-// declaring keys
-const redirectUri = process.env.REDIRECT_URI;
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const port = process.env.PORT;
-
-// state key generation
-var generateRandomString = function(length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-};
-
-const scopes = ['user-read-private', 'user-read-email']
-var state = generateRandomString(16);
 
 const spotifyApi = new SpotifyWebApi({
     redirectUri: redirectUri,
@@ -139,9 +98,18 @@ app.get('/playlist', function(req, res) {
 
 });
 
-// SERVER LISTEN
-sequelize.sync({ force: false }).then(() => {
-    app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
+
+
+router.put('/playlist/name', (req, res) => {
+    db.Playlist.update({
+        playlist_name: playlistArray[0].playlist_name,
+    }, {
+        where: {
+            id: req.params.id
+        }
+    }).then(dbPlaylist => {
+        res.json(dbPlaylist)
     });
 });
+
+module.exports(spotifyApi, playlistArray, router);
