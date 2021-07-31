@@ -1,13 +1,12 @@
-const { all } = require('bluebird');
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, INTEGER } = require('sequelize');
 const sequelize = require('../config/connections');
-const Playlist = require('./playlist');
+const Playlist = require('./Playlist');
 
 class PlaylistSongs extends Model {}
 
 PlaylistSongs.init({
     id: {
-        type: DataTypes.INTERGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
@@ -20,8 +19,13 @@ PlaylistSongs.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
+    album_name: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+
+    },
     playlist_id: {
-        type: DataTypes.INTERGER,
+        type: DataTypes.INTEGER,
         references: {
             model: 'playlist',
             key: 'id'
@@ -30,6 +34,9 @@ PlaylistSongs.init({
     }
 }, {
     sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
     modelName: 'playlist_songs',
 })
 

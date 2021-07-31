@@ -1,11 +1,15 @@
 const { spotifyApi, playlistArray } = require('sequelize');
+const router = require('express').Router();
+const db = require('../../models');
+const express = require('express');
+const exphbs = require('express-handlebars');
 
 
 
 
 
 router.put('/songs/title', (req, res) => {
-    db.Playlist.update({
+    PlaylistSongs.update({
         author: req.body.author,
     }, {
         where: {
@@ -17,7 +21,7 @@ router.put('/songs/title', (req, res) => {
 });
 
 router.put('/songs/author', (req, res) => {
-    db.Playlist.update({
+    db.PlaylistSongs.update({
         songs_title: req.body.songs_title,
     }, {
         where: {
@@ -27,6 +31,12 @@ router.put('/songs/author', (req, res) => {
         res.json(dbPlaylist)
     });
 });
+
+router.put('/sons/album', (res, req) => {
+    db.PlaylistSongs.update({
+        songs_
+    })
+})
 
 
 

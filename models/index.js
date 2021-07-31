@@ -1,5 +1,5 @@
-const Playlist = require('./playlist')
-const PlaylistSongs = require('./songs')
+const Playlist = require('./Playlist')
+const PlaylistSongs = require('./Songs')
 
 
 PlaylistSongs.belongsTo(Playlist, {

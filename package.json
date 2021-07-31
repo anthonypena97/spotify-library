@@ -4,8 +4,7 @@
     "description": "App for collecting playlist data from Spotify",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node app.js"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
@@ -23,11 +22,10 @@
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "express-handlebars": "^5.3.2",
-        "handlebars": "^4.7.7",
-        "mysql2": "^2.2.5",
+        "mysql2": "^2.1.0",
         "querystring": "^0.2.1",
         "request": "^2.88.2",
-        "sequelize": "^6.6.5",
+        "sequelize": "^5.21.7",
         "spotify-web-api-js": "^1.5.1",
         "spotify-web-api-node": "^5.0.2"
     }

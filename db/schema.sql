@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS offline_music;
+DROP DATABASE IF EXISTS offlinemusic_db;
 
-CREATE DATABASE offline_music;
+CREATE DATABASE offlinemusic_db;
