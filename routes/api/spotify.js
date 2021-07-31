@@ -1,13 +1,15 @@
 const router = require('express').Router()
 const db = require('../../models');
 const SpotifyWebApi = require('spotify-web-api-node');
-let bodyArray = [];
+
 
 
 
 // using to test the url code "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
 
+const spotifyApi = new SpotifyWebApi({
 
+});
 
 
 // PLAYLIST DATA TEST PAGE
@@ -21,7 +23,7 @@ router.post('/playlist-return-test', function(req, res) {
 
             let infoArray = [];
             let tracksArray = [];
-            // let bodyArray = [];
+            let bodyArray = [];
             let playlistTrackAmount = data.body.tracks.items;
             let playlistName = data.body.name;
             let playlistArtworkURL = data.body.images[0].url;

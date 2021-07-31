@@ -1,5 +1,6 @@
 const Playlist = require('./Playlist')
 const PlaylistSongs = require('./Songs')
+const UserLogin = require('./UserLogin')
 
 
 PlaylistSongs.belongsTo(Playlist, {
@@ -12,4 +13,4 @@ Playlist.hasMany(PlaylistSongs, {
 })
 
 
-module.exports = { Playlist, PlaylistSongs };
+module.exports = { Playlist, PlaylistSongs, UserLogin };

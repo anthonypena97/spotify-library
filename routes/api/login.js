@@ -9,7 +9,6 @@ const exphbs = require('express-handlebars');
 const redirectUri = process.env.REDIRECT_URI;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-const port = process.env.PORT;
 
 
 
@@ -42,8 +41,8 @@ router.get('/spotify-auth', function(req, res) {
 
 });
 
-// CALLBACK PAGE
-router.get('/callback', (req, res) => {
+// CALLBACK PAGE IDK WHY ITS NOT WORKING MAYBE CAUSE THE TOKENS ARENT SET UP YET
+router.get('api/login/callback', (req, res) => {
     const error = req.query.error;
     const code = req.query.code;
     const state = req.query.state;
@@ -72,7 +71,7 @@ router.get('/callback', (req, res) => {
             );
             // res.send('Success! You can now close the window.');
 
-            res.redirect('/playlist-return-test');
+            res.redirect('api/spotify/playlist-return-test');
 
             setInterval(async() => {
                 const data = await spotifyApi.refreshAccessToken();
@@ -94,10 +93,49 @@ router.get('/callback', (req, res) => {
 
 
 
-// CREATE ACCOUNT PAGE
-router.get('/create-account', function(req, res) {
+// CREATE ACCOUNT PAGE THIS CREATES A USER LOGIN IF ITS DONE RIGHT MIGHT HAVE TO RE LOOK AT IT
+router.post('/create-account', (req, res) => {
+    User.create({
+            username: req.body.username,
+            password: req.body.password
+        })
+        .then(db.UserLogin, () => {
+            req.session.save(() => {
+                req.session.username = db.UserLogin.username;
+                req.session.password = db.UserLogin.password;
+                req.session.loggedIn = true
 
+                req.json(db.UserLogin)
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err)
+        })
 });
+
+
+
+// this gets all users in a list we dont need it idk made it just in case
+router.get('/allUsers', async(req, res) => {
+    try {
+        const allUser = await db.UserLogin.findAll({
+            attributes: { exclude: ['password', 'token_for_user'] }
+        })
+        res.json(allUser)
+
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+
+})
+
+
+
+
+
+
 
 
 

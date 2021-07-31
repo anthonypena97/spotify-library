@@ -20,7 +20,7 @@ PlaylistSongs.init({
         allowNull: false,
     },
     album_name: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
 
     },
