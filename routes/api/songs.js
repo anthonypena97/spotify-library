@@ -4,40 +4,34 @@ const db = require('../../models');
 const express = require('express');
 const exphbs = require('express-handlebars');
 
-
-
-
-
-router.put('/songs/title', (req, res) => {
-    PlaylistSongs.update({
-        author: req.body.author,
-    }, {
-        where: {
-            author: req.body.author
-        }
-    }).then(dbPlaylist => {
-        res.json(dbPlaylist)
-    });
+router.get('/title', async(req, res) => {
+    try {
+        const updateSongTitle = await db.PlaylistSongs.findOne(req.body, { where: { songs_title: req.body.songs_title } })
+        res.json(updateSongTitle)
+    } catch (error) {
+        res.status(400).json(error)
+    }
 });
 
-router.put('/songs/author', (req, res) => {
-    db.PlaylistSongs.update({
-        songs_title: req.body.songs_title,
-    }, {
-        where: {
-            songs_title: req.body.songs_title
-        }
-    }).then(dbPlaylist => {
-        res.json(dbPlaylist)
-    });
+router.get('/author', async(req, res) => {
+    try {
+        const updateSongAuthor = await db.PlaylistSongs.findAll(req.body, { where: { author: req.params.author } })
+        res.json(updateSongAuthor)
+    } catch (error) {
+        res.status(400).json(error)
+    }
 });
 
-router.put('/sons/album', (res, req) => {
-    db.PlaylistSongs.update({
-        songs_
-    })
+
+
+router.post('/songTitle', async(req, res) => {
+    try {
+        const newTitle = await db.PlaylistSongs.create(req.body)
+        res.json(newTitle)
+    } catch (error) {
+        res.status(400).json(error)
+    }
 })
-
 
 
 

@@ -3,14 +3,10 @@ const db = require('../../models');
 const SpotifyWebApi = require('spotify-web-api-node');
 let bodyArray = [];
 
-// instance of spotify web api node - authorization setting
-const spotifyApi = new SpotifyWebApi({
-
-});
-
 
 
 // using to test the url code "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
+
 
 
 
@@ -70,6 +66,7 @@ router.post('/playlist-return-test', function(req, res) {
             console.log('Something went wrong!', err);
         });
 });
+
 
 
 

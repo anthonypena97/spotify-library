@@ -11,9 +11,8 @@ const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connections')
-
-
 const app = express()
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
     // .env file access
