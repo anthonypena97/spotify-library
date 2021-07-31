@@ -137,8 +137,7 @@ app.get('/playlist', function (req, res) {
 });
 
 // SERVER LISTEN
-sequelize.sync({ force: false }).then(() => {
-    app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
-    });
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
 });
