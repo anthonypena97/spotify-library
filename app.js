@@ -28,7 +28,7 @@ app.use(express.static(publicPath));
 const redirectUri = process.env.REDIRECT_URI;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-const port = 3001;
+const port = process.env.PORT || 3000;
 
 // state key generation
 var generateRandomString = function (length) {

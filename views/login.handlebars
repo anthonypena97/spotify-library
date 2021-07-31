@@ -1,18 +1,13 @@
 <nav class='navbar'>
     <h1>Offline Beats</h1>
-</nav>
-
-<div id="myModal" class='container modal'>
-  <!-- Modal content -->
-  <div class="modal-content">
-    <form action="/">
-    <h2>Login Page</h2>
-      <label for="Uname">Username:</label><br />
-      <input type="text" id="Uname" name="Uname" value="Username" /><br />
-      <label for="password">Password:</label><br />
-      <input type="text" id="password" name="Password" value="password" /><br
-      /><br />
-      <input id="submit" type="submit" value="Submit" />
-    </form>
+  </nav>
+    
+  <div id="myModal" class='container login-modal col-9'>
+    <h2>Login to your Account</h2>
+    <!-- Modal content  -->
+    <div class="modalContent">
+      <input class='input-field' type='text' name="userName" id="uName" value="Username"></br>
+      <input class='input-field' type='text' name='password' id='pWord' value="Password"></br>
+      <button type='submit' class='login-submit col-3' id='loginButton'>Go!</button>
+    </div>
   </div>
-</div>
