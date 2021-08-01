@@ -33,7 +33,7 @@ app.use(express.static(publicPath));
 const redirectUri = process.env.REDIRECT_URI;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // state key generation
 var generateRandomString = function (length) {
@@ -186,6 +186,7 @@ app.get('/playlist-display', function (req, res) {
 });
 
 // SERVER LISTEN
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 });
