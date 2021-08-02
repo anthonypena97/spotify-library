@@ -56,6 +56,9 @@ const spotifyApi = new SpotifyWebApi({
     clientSecret: clientSecret
 });
 
+// ROUTES
+// ===========================================================
+
 // HOMEPAGE
 app.get('/', (req, res) => {
     res.render('landing');
