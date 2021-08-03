@@ -8,7 +8,6 @@
     $("#btn").on("click", function () {
         playlistURL = $("#playlistUrlSearch").val();
         var playlistID = playlistURL.slice(34, 56)
-        console.log(playlistID)
 
         $.get("/spotify-playlist/" + playlistID);
 

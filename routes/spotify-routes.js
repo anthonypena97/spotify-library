@@ -1,13 +1,6 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const router = require('express').Router();
 
-// hardcoded url for testing
-// var testPlaylistURL = "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
-var testPlaylistURL = "https://open.spotify.com/playlist/4USGfZTXTmmVxXvEwrgPXG?si=a34a793cbb3f4ac9"
-var playlistID = testPlaylistURL.slice(34, 56)
-
-console.log(playlistID)
-
 // .env file access
 require('dotenv').config()
 
@@ -82,7 +75,7 @@ router.get('/callback', (req, res) => {
         });
 });
 
-// SPOTIFY PLAYLIST CALL - ***HARDCODED URL FOR NOW
+// SPOTIFY PLAYLIST CALL - PASSING IN ID FROM QUERY IN SEARCH.HANDLEBARS
 router.get('/spotify-playlist/:id', function (req, res) {
 
     const playlistIdReq = req.params.id;
