@@ -75,6 +75,13 @@ router.get('/callback', (req, res) => {
         });
 });
 
+
+// SEARCH
+
+router.get('/spotify-playlist', (req, res) => {
+    res.render('spotify-playlist');
+})
+
 // SPOTIFY PLAYLIST CALL - PASSING IN ID FROM QUERY IN SEARCH.HANDLEBARS
 router.get('/spotify-playlist/:id', function (req, res) {
 
@@ -125,7 +132,10 @@ router.get('/spotify-playlist/:id', function (req, res) {
 
             bodyArray.push(playlistObj);
 
+            // COMPILED SPOTIFY API RETURN DATA FROM CHOSEN PLAYLIST
             res.send(body);
+
+            // res.render('spotify-playlist', body);
 
         }, function (err) {
             console.log('Something went wrong!', err);
