@@ -25,16 +25,16 @@ router.post('/', async(req, res) => {
     // {
     //     "playlist_name": "codind tonz",
     //     "songs": [{
-    //          "songs_title": "musicidk",
-    //         "author": "erik",
-    //         "album_name": "coding"
-    //     },
-    //                 {
-    //          "songs_title": "done",
-    //         "author": "luke",
-    //         "album_name": "pc"
-    //     }
-    //              ]
+    //             "songs_title": "musicidk",
+    //             "author": "erik",
+    //             "album_name": "coding"
+    //         },
+    //         {
+    //             "songs_title": "done",
+    //             "author": "luke",
+    //             "album_name": "pc"
+    //         }
+    //     ]
     // }
     try {
         const playlist = await db.Playlist.create({ playlist_name: req.body.playlist_name })
