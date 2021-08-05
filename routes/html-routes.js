@@ -15,6 +15,11 @@ router.get('/login', function (req, res) {
     res.render('login');
 });
 
+// CREATE CONFIRMATION
+router.get('/confirmation', function (req, res) {
+    res.render('confirmation');
+});
+
 // PLAYLIST LIBRARY PAGE
 router.get('/library', function (req, res) {
     res.render('library');
