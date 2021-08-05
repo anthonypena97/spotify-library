@@ -4,6 +4,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connections')
 const session = require('express-session');
+const db = require('./models');
 // const SequilzeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express()
@@ -27,8 +28,8 @@ app.use(
     })
 );
 
-// app.use(express.json())
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // .env file access
 require('dotenv').config()
