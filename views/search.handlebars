@@ -1,0 +1,16 @@
+<div>
+    <label for="fname">PLAYLIST URL:</label>
+    <input type="text" id="playlistUrlSearch" name="fname">
+    <button id="btn">Submit</button>
+</div>
+
+<script type="text/javascript">
+    $("#btn").on("click", function () {
+        playlistURL = $("#playlistUrlSearch").val();
+        var playlistID = playlistURL.slice(34, 56)
+
+        $.get("/spotify-playlist/" + playlistID);
+
+        window.location.href = "/spotify-playlist/" + playlistID;
+    });
+</script>
