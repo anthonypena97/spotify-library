@@ -104,7 +104,7 @@ router.get('/spotify-playlist/:id', function (req, res) {
             };
 
             let playlistObj = {
-                info: infoArray,
+                info: infoArray, //where is this being used?//
                 tracks: tracksArray
             };
 
