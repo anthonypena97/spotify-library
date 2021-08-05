@@ -1,15 +1,45 @@
+const router = require('express').Router()
+const db = require('../../models');
 const SpotifyWebApi = require('spotify-web-api-node');
-const router = require('express').Router();
 
-// .env file access
-require('dotenv').config()
+
+
+// const router = require('express').Router();
+// const db = require('../../models');
+// const SpotifyWebApi = require('spotify-web-api-node');
+const express = require('express');
+const exphbs = require('express-handlebars');
+
 
 // declaring keys
 const redirectUri = process.env.REDIRECT_URI;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
+
+
+
+
+// using to test the url code "https://open.spotify.com/playlist/5FOP3Y5BlZvxn06uPL1Heb?si=3ecdae5213074819"
+
+// const spotifyApi = new SpotifyWebApi({
+
+// });
+
+
+var generateRandomString = function(length) {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+};
+
 const scopes = ['user-read-private', 'user-read-email']
+var state = generateRandomString(16);
+
 
 // instance of spotify web api node - authorization setting
 const spotifyApi = new SpotifyWebApi({
@@ -18,17 +48,15 @@ const spotifyApi = new SpotifyWebApi({
     clientSecret: clientSecret
 });
 
-// Routes
-// =============================================================
-
 // SPOTIFY AUTHENTICATION
-router.get('/spotify-auth', function (req, res) {
+router.get('/spotify-auth', function(req, res) {
     res.redirect(spotifyApi.createAuthorizeURL(scopes));
+    // need to save it so we can use it in other routes
 
 });
 
-// CALLBACK PAGE
-router.get('/callback', (req, res) => {
+// CALLBACK PAGE IDK WHY ITS NOT WORKING MAYBE CAUSE THE TOKENS ARENT SET UP YET
+router.get('api/login/callback', (req, res) => {
     const error = req.query.error;
     const code = req.query.code;
     const state = req.query.state;
@@ -55,11 +83,11 @@ router.get('/callback', (req, res) => {
             console.log(
                 `Sucessfully retreived access token. Expires in ${expires_in} s.`
             );
+            // res.send('Success! You can now close the window.');
 
-            // CHANGE TO RETURN PAGE //
-            res.redirect('/search');
+            res.redirect('api/spotify/playlist-return-test');
 
-            setInterval(async () => {
+            setInterval(async() => {
                 const data = await spotifyApi.refreshAccessToken();
                 const access_token = data.body['access_token'];
 
@@ -76,20 +104,16 @@ router.get('/callback', (req, res) => {
 });
 
 
-// SEARCH
 
-router.get('/spotify-playlist', (req, res) => {
-    res.render('spotify-playlist');
-})
 
-// SPOTIFY PLAYLIST CALL - PASSING IN ID FROM QUERY IN SEARCH.HANDLEBARS
-router.get('/spotify-playlist/:id', function (req, res) {
-
-    const playlistIdReq = req.params.id;
-
-    // spotify api get playlist call
-    spotifyApi.getPlaylist(playlistIdReq)
-        .then(function (data) {
+// PLAYLIST DATA TEST PAGE
+router.post('/playlist-return-test', function(req, res) {
+    console.log(req.body);
+    var testPlaylistURL = req.body.url
+    var playlistID = testPlaylistURL.slice(34, 56)
+        // spotify api get playlist call
+    spotifyApi.getPlaylist(playlistID)
+        .then(function(data) {
 
             let infoArray = [];
             let tracksArray = [];
@@ -104,7 +128,7 @@ router.get('/spotify-playlist/:id', function (req, res) {
             };
 
             let playlistObj = {
-                info: infoArray, //where is this being used?//
+                info: infoArray,
                 tracks: tracksArray
             };
 
@@ -132,14 +156,15 @@ router.get('/spotify-playlist/:id', function (req, res) {
 
             bodyArray.push(playlistObj);
 
-            // COMPILED SPOTIFY API RETURN DATA FROM CHOSEN PLAYLIST
             res.send(body);
 
-            // res.render('spotify-playlist', body);
-
-        }, function (err) {
+        }, function(err) {
             console.log('Something went wrong!', err);
         });
 });
+
+
+
+
 
 module.exports = router;
