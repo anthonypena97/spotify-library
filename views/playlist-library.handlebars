@@ -1,0 +1,28 @@
+<div class= "playlists">
+    <div class="playlist_title">
+        {{!-- Will this require a title from my backend? --}}
+        <h2>My Playlists</h2>
+    </div>
+    
+        {{!-- Trigger/Open The Modal --}}
+        <button id="Add Playlist">Add Playlist</button>
+        {{!-- The Modal --}}
+        <div id="myModal" class="modal">
+
+        {{!-- Modal content --}}
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p></p>
+        </div>
+</div>
+    <div class="playlists_groups">
+        {{!-- Waiting for back-end to finish linking a route to this page with json data --}}
+        {{#with playlists}}
+            <h2>{{title}}</h2>
+            <img src={{image_url}} />
+            {{!-- image_url
+            name of album
+            description of album --}}
+        {{/with}}
+    </div>
+</div>
