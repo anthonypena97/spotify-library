@@ -1,19 +1,28 @@
-<div>
-    <label for="fname">PLAYLIST URL:</label>
-    <input type="text" id="playlistUrlSearch" name="fname">
-    <button id="btn">Submit</button>
-</div>
-
-<div id="confirmation">
-
-    <div>
-        <img id="playlist-artwork" style="display:none;">
-        <p id="playlist-name"></p>
+<div class='container-fluid search'>
+    <div class='searchBar col-6'>
+        {{!-- <label for="fname">PLAYLIST URL:</label> --}}
+        <input type="text" id="playlistUrlSearch" name="fname" value='Playlist URL'>
+        <button id="btn">Submit</button>
     </div>
 
-    <div id="songs" style="height: 400px; width: 300px; overflow: scroll;">
-    </div>
+    <div id="confirmation" style="display:none;">
 
+        <div class='playlist-head'>
+            <img id="playlist-artwork">
+            <p id="playlist-name"></p>
+            <button id='deletePlaylist' class='playlistBtn'>Delete Playlist</button>
+            <button id='savePlaylist' class='playlistBtn'>Save Playlist</button>
+        </div>
+
+        <div id='songSearch'>
+            <input id="searchForSong" type='text' class='searchBar' value='Search for a Song'>
+            <button type='submit' class='searchSubmit'>&#128269;</button>
+        </div>
+
+        <div id="songs" class='col-9' style="height: 400px; width: 300px; overflow: scroll;">
+        </div>
+
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -26,9 +35,12 @@
             let artworkContainer = document.querySelector("#playlist-artwork");
             let playlistNameContainer = document.querySelector("#playlist-name");
             let songContainer = document.querySelector("#songs");
+            let confirmationContainer = document.querySelector('#confirmation');
 
             let artwork = data.body[0].info[0].artwork;
             let playlistName = data.body[0].info[0].name;
+
+            confirmationContainer.setAttribute('style', 'display: block;');
 
             artworkContainer.setAttribute("style", "width: 300px;height: 300px;object-fit:cover; display:block;");
             artworkContainer.setAttribute("src", artwork);
