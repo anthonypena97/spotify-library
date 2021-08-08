@@ -86,6 +86,12 @@ nav h4 a:hover {
 .addPlaylist {
   display: flex;
 }
+.addPlaylist a:hover {
+  background-color:rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  text-decoration: none;
+}
+
 
 /* Search URL */
 .searchBar {
@@ -176,11 +182,31 @@ nav h4 a:hover {
   flex-direction: column;
   width: 100%;
 }
+#songs::-webkit-scrollbar {
+  display: none;
+}
 #songs p {
+  margin: 10px 0px;
   font-size: 24px;
   color: #f5f5f5;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1db954ff;
+  border-radius: 7px;
+}
 
 /* Media queries */
 @media (max-width: 590px) {
