@@ -1,9 +1,10 @@
 $("#btn").on("click", function() {
     playlistURL = $("#playlistUrlSearch").val();
+
     var playlistID = playlistURL.slice(34, 56)
 
     var newArr = []
-    var newPost
+    var newSong
     var title
     var author
     var playlistName
@@ -41,7 +42,7 @@ $("#btn").on("click", function() {
         }
 
     });
-    $("#save-btn").on("click", function() {
+    $("#savePlaylist").on("click", function() {
         var newPlaylit = {
             "playlist_name": playlistName,
             "songs": newArr
