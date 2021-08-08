@@ -1,8 +1,6 @@
 const router = require('express').Router()
-const bodyArray = require('./spotify');
 const db = require('../../models');
-const express = require('express');
-const exphbs = require('express-handlebars');
+
 
 
 
@@ -16,26 +14,28 @@ router.get('/playlist-display', function(req, res) {
 });
 
 
+// this is how the data needs to be structured 
+// db.Playlist.create({
 
+//     "playlist_name": ,
+//     "songs": [{
+//             "songs_title": ,
+//             "author": ,
+//             "album_name": "coding"
+//         },
+//         {
+//             "songs_title": "done",
+//             "author": "luke",
+//             "album_name": "pc"
+//         }
+//     ]
+
+// })
 
 
 // STORES SONGS INTO OUR DATA BASE THIS IS THE OBJECT WE NEED ON THE FRONT END
-router.post('/', async(req, res) => {
-    //this is how the data needs to be structured 
-    // {
-    //     "playlist_name": "codind tonz",
-    //     "songs": [{
-    //             "songs_title": "musicidk",
-    //             "author": "erik",
-    //             "album_name": "coding"
-    //         },
-    //         {
-    //             "songs_title": "done",
-    //             "author": "luke",
-    //             "album_name": "pc"
-    //         }
-    //     ]
-    // }
+router.post('/save', async(req, res) => {
+
     try {
         const playlist = await db.Playlist.create({ playlist_name: req.body.playlist_name })
         console.log(playlist.dataValues)
@@ -92,7 +92,18 @@ router.get('/:playlist_name', async(req, res) => {
 
 
 
-
+router.put('/update/:id', async(req, res) => {
+    try {
+        const updatePlaylistName = await db.Playlist.update({
+            where: {
+                playlist_name: req.params.playlist_name
+            }
+        })
+        res.json(updatePlaylistName)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 
 
 router.delete('/:playlist_name', async(req, res) => {

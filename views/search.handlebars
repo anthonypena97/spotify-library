@@ -2,6 +2,7 @@
     <label for="fname">PLAYLIST URL:</label>
     <input type="text" id="playlistUrlSearch" name="fname">
     <button id="btn">Submit</button>
+    <button id="save-btn">Confirmation</button>
 </div>
 
 <div id="confirmation">
@@ -17,30 +18,12 @@
 </div>
 
 <script type="text/javascript">
-    $("#btn").on("click", function () {
-        playlistURL = $("#playlistUrlSearch").val();
-        var playlistID = playlistURL.slice(34, 56)
+   
 
-        $.get("/spotify-playlist/" + playlistID, function (data) {
 
-            let artworkContainer = document.querySelector("#playlist-artwork");
-            let playlistNameContainer = document.querySelector("#playlist-name");
-            let songContainer = document.querySelector("#songs");
 
-            let artwork = data.body[0].info[0].artwork;
-            let playlistName = data.body[0].info[0].name;
+       
 
-            artworkContainer.setAttribute("style", "width: 300px;height: 300px;object-fit:cover; display:block;");
-            artworkContainer.setAttribute("src", artwork);
-            playlistNameContainer.innerHTML = playlistName;
-
-            for (var i = 0; i < data.body[0].tracks.length; i++) {
-                let title = data.body[0].tracks[i].title; let
-                    author = data.body[0].tracks[i].author; let track = title + " - " + author; let songElement = document.createElement("p");
-                songElement.innerHTML = track; songContainer.appendChild(songElement);
-            }
-        });
-    });
 </script>
 
 {{!-- window.location.href = "/spotify-playlist/" + playlistID; --}}

@@ -139,4 +139,4 @@ router.get('/allUsers', async(req, res) => {
 
 
 
-module.exports = router, spotifyApi;
+module.exports = router;

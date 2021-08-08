@@ -19,11 +19,6 @@ PlaylistSongs.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    album_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-
-    },
     playlist_id: {
         type: DataTypes.INTEGER,
         references: {
