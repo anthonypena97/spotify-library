@@ -40,6 +40,7 @@ app.set('view engine', 'handlebars');
 
 // path setting
 const publicPath = path.resolve(__dirname, "public");
+
 app.use(express.static(publicPath));
 
 // declaring keys
@@ -47,17 +48,12 @@ const port = process.env.PORT || 3000;
 
 // ROUTES
 // ===========================================================
-app.use(require('./routes/html-routes'));
-app.use(require('./routes/spotify-routes'));
+app.use(require('./routes'));
 
 // SERVER LISTEN
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+sequelize.sync({ force: false }).then(() => {
+    app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`)
+        console.log(publicPath)
+    });
 });
-
-// // SERVER LISTEN
-// sequelize.sync({ force: false }).then(() => {
-//     app.listen(port, () => {
-//         console.log(`Example app listening at http://localhost:${port}`)
-//     });
-// });
