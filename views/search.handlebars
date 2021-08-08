@@ -1,11 +1,11 @@
 <div class='container-fluid search'>
     <div class='searchBar col-6'>
         {{!-- <label for="fname">PLAYLIST URL:</label> --}}
-        <input type="text" id="playlistUrlSearch" name="fname" value='Playlist URL'>
+        <input type="text" id="playlistUrlSearch" name="fname" placeholder='Playlist URL'>
         <button id="btn">Submit</button>
     </div>
 
-    <div id="confirmation" style="display:none;">
+    <div id="confirmation">
 
         <div class='playlist-head'>
             <img id="playlist-artwork">
@@ -15,11 +15,11 @@
         </div>
 
         <div id='songSearch'>
-            <input id="searchForSong" type='text' class='searchBar' value='Search for a Song'>
+            <input id="searchForSong" type='text' class='searchBar' placeholder='Search for a Song'>
             <button type='submit' class='searchSubmit'>&#128269;</button>
         </div>
 
-        <div id="songs" class='col-9' style="height: 400px; width: 300px; overflow: scroll;">
+        <div id="songs" style="overflow: scroll;">
         </div>
 
     </div>
@@ -27,33 +27,7 @@
 </div>
 
 <script type="text/javascript">
-    $("#btn").on("click", function () {
-        playlistURL = $("#playlistUrlSearch").val();
-        var playlistID = playlistURL.slice(34, 56)
 
-        $.get("/spotify-playlist/" + playlistID, function (data) {
-
-            let artworkContainer = document.querySelector("#playlist-artwork");
-            let playlistNameContainer = document.querySelector("#playlist-name");
-            let songContainer = document.querySelector("#songs");
-            let confirmationContainer = document.querySelector('#confirmation');
-
-            let artwork = data.body[0].info[0].artwork;
-            let playlistName = data.body[0].info[0].name;
-
-            confirmationContainer.setAttribute('style', 'display: block;');
-
-            artworkContainer.setAttribute("style", "width: 300px;height: 300px;object-fit:cover; display:block;");
-            artworkContainer.setAttribute("src", artwork);
-            playlistNameContainer.innerHTML = playlistName;
-
-            for (var i = 0; i < data.body[0].tracks.length; i++) {
-                let title = data.body[0].tracks[i].title; let
-                    author = data.body[0].tracks[i].author; let track = title + " - " + author; let songElement = document.createElement("p");
-                songElement.innerHTML = track; songContainer.appendChild(songElement);
-            }
-        });
-    });
 </script>
 
 {{!-- window.location.href = "/spotify-playlist/" + playlistID; --}}

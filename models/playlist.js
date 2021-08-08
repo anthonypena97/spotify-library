@@ -13,7 +13,8 @@ Playlist.init({
     },
     playlist_name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: false,
+        allowNull: true,
     },
 }, {
     sequelize,
