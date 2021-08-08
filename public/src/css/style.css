@@ -1,12 +1,12 @@
 * {
   margin: 3px;
   font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* Background Image */
 body {
-  background-image: linear-gradient(to bottom, rgba(29, 185, 84, 0.3), rgba(0, 0, 0, 0.4)), url("../images/pexels-vitaly-vlasov-1516406.jpg");
+  background-image: linear-gradient(to bottom, rgba(29, 185, 84, 0.5), rgba(0, 0, 0, 0.9)), url("../images/pexels-vitaly-vlasov-1516406.jpg");
   background-repeat: no-repeat;
   background-size: 140%;
   background-position: absolute;
@@ -83,6 +83,103 @@ nav h4 a:hover {
   
 }
 
+.addPlaylist {
+  display: flex;
+}
+
+/* Search URL */
+.searchBar {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.75);
+  font-weight: 500;
+  border-radius: 8px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+#btn {
+  background-color: #1db954ff;
+  color: #f5f5f5;
+  border-radius: 7px;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 0;
+}
+#playlistUrlSearch {
+  color:rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  border-width: 0;
+}
+
+.libTitle {
+  color: #f5f5f5;
+  font-size: 48px;
+  margin-left: 15px;
+}
+
+
+#confirmation {
+
+}
+.playlist-head {
+  display: flex;
+  flex-direction: row;
+}
+#playlist-name {
+  font-size: 64px;
+  color: #f5f5f5;
+  font-weight: bold;
+  margin-top: auto;
+  padding: 3px 8px;
+}
+#playlist-artwork {
+  margin: 5px;
+  border-radius: 10px;
+}
+.playlistBtn {
+  background-color: #1db954ff;
+  font-size: 24px;
+  border-radius: 7px;
+  color:#f5f5f5;
+  height: 20%;
+  margin: auto 10px 25px 10px;
+  padding: 8px 8px;
+  border-width: 0;
+}
+
+/* Search Bar for a Single Song in a Playlist */
+#songSearch {
+  display: flex;
+  align-items: center;
+}
+#searchForSong {
+  margin: auto 0;
+  color:rgba(0, 0, 0, 0.6);
+  border-radius: 8px 0 0 8px;
+  border-width: 0;
+}
+.searchSubmit {
+  background-color: #1db954ff;
+  border-radius: 0 8px 8px 0;
+  height: 38px;
+  border-width: 0;
+}
+
+#deletePlaylist {
+  background-color: rgba(30, 20, 10, 1);
+}
+
+#songs {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#songs p {
+  font-size: 24px;
+  color: #f5f5f5;
+}
 
 
 /* Media queries */

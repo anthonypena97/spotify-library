@@ -121,9 +121,9 @@ router.get('/spotify-playlist/:id', function (req, res) {
                     title: 'title',
                 }
 
-                track.author = data.body.tracks.items[i].track.name;
+                track.title = data.body.tracks.items[i].track.name;
 
-                track.title = data.body.tracks.items[i].track.album.artists[0].name;
+                track.author = data.body.tracks.items[i].track.album.artists[0].name;
 
                 playlistObj.tracks.push(track);
             };
@@ -133,9 +133,12 @@ router.get('/spotify-playlist/:id', function (req, res) {
             bodyArray.push(playlistObj);
 
             // COMPILED SPOTIFY API RETURN DATA FROM CHOSEN PLAYLIST
-            res.send(body);
+            // res.send(data);
 
-            // res.render('spotify-playlist', body);
+            return res.json(body)
+
+            // res.render('confirmation', body);
+            // return res.redirect('/confirmation');
 
         }, function (err) {
             console.log('Something went wrong!', err);
