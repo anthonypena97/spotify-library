@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const sequelize = require('./config/connections')
 const session = require('express-session');
 const db = require('./models');
+const port = process.env.PORT || 8888;
 // const SequilzeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express()
@@ -43,9 +44,6 @@ const publicPath = path.resolve(__dirname, "public");
 
 app.use(express.static(publicPath));
 
-// declaring keys
-const port = process.env.PORT || 3000;
-
 // ROUTES
 // ===========================================================
 app.use(require('./routes'));
@@ -54,6 +52,6 @@ app.use(require('./routes'));
 sequelize.sync({ force: false }).then(() => {
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`)
-        console.log(publicPath)
+        // console.log(publicPath)
     });
 });
