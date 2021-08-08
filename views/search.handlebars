@@ -1,28 +1,31 @@
-<div>
-    <label for="fname">PLAYLIST URL:</label>
-    <input type="text" id="playlistUrlSearch" name="fname">
-    <button id="btn">Submit</button>
-    <button id="save-btn">Confirmation</button>
-</div>
-
-<div id="confirmation">
-
-    <div>
-        <img id="playlist-artwork" style="display:none;">
-        <p id="playlist-name"></p>
+<div class='container-fluid search'>
+    <div class='searchBar col-6'>
+        {{!-- <label for="fname">PLAYLIST URL:</label> --}}
+        <input type="text" id="playlistUrlSearch" name="fname" placeholder='Playlist URL'>
+        <button id="btn">Submit</button>
     </div>
 
-    <div id="songs" style="height: 400px; width: 300px; overflow: scroll;">
-    </div>
+    <div id="confirmation" style="display:none;">
 
+        <div class='playlist-head'>
+            <img id="playlist-artwork">
+            <p id="playlist-name"></p>
+            <button id='deletePlaylist' class='playlistBtn'>Delete Playlist</button>
+            <button id='savePlaylist' class='playlistBtn'>Save Playlist</button>
+        </div>
+
+        <div id='songSearch'>
+            <input id="searchForSong" type='text' class='searchBar' placeholder='Search for a Song'>
+            <button type='submit' class='searchSubmit'>&#128269;</button>
+        </div>
+
+        <div id="songs" style="overflow: scroll;">
+        </div>
+
+    </div>
 </div>
 
 <script type="text/javascript">
-   
-
-
-
-       
 
 </script>
 
