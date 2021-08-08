@@ -110,3 +110,13 @@ nav h4 a:hover {
     background-size: 300%;
   }
 }
+ 
+/* Search URL */
+.search > div{
+  display: flex;
+  justify-content: center;
+  margin-top: 20%;
+}
+.search > label{
+  margin-right: 10px;
+}
