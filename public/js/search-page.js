@@ -57,7 +57,7 @@ $("#playlist-search-btn").on("click", function () {
 // FUNCTION FOR PACKAING playlistTracksArray WITH PLAYLIST ID - FOR POST
 const packageTracks = (savedPlaylistId) => {
 
-    // ITERATE THROUGH ALL SONGS WITHIN PLAYLIST FOR DISPLAYING ON PAGE
+    // ITERATE THROUGH ALL SONGS WITHIN PLAYLIST FOR PUSHING THEM WITH POST ROUTES
     for (var i = 0; i < playlistData.body[0].tracks.length; i++) {
         title = playlistData.body[0].tracks[i].title;
         artist = playlistData.body[0].tracks[i].author;

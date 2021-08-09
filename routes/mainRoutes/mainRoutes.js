@@ -43,8 +43,51 @@ router.get('/library', function (req, res) {
 });
 
 // PLAYLIST DISPLAY PAGE
-router.get('/playlist', function (req, res) {
-    res.render('playlist');
+router.get('/playlist/:id', function (req, res) {
+
+    console.log(req.params.id);
+
+    // res.render('playlist')
+
+    // let playlistId = req.params.id;
+
+    // console.log(playlistId)
+
+    Playlist.findAll({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'playlist_name',
+            'playlist_artwork'
+        ]
+    })
+        .then(dbLibraryData => {
+            playlist = dbLibraryData.map(playlist => playlist.get({ plain: true }));
+            console.log(playlist);
+            res.render('playlist', { playlist });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;
+
+// .then(playlistInfo => {
+        //     // data.push(playlistInfo);
+        // })
+
+        // Songs.findAll({
+        //     where: {
+        //         playlist_id: playlistId
+        //     },
+        //     attribute: [
+        //         'id',
+        //         'song_title',
+        //         'artist',
+        //         'playlist_id'
+        //     ]
+        // })

@@ -261,6 +261,12 @@ nav h4 a:hover {
   border-radius: 7px;
 }
 
+/* ============================== PLAYLIST PAGE ============================== */
+
+#deletePlaylist-playlistPage {
+  background-color: rgba(30, 20, 10, 1);
+}
+
 /* Media queries */
 @media (max-width: 590px) {
   body {

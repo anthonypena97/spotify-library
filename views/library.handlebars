@@ -3,7 +3,9 @@
     <nav class="library-nav">
 
         <div class="library_title library-nav-item">
-            <h2 class='libTitle'>Library</h2>
+            <a href="/library">
+                <h2 class='libTitle'>Library</h2>
+            </a>
         </div>
 
         <div class="addPlaylist library-nav-item">
@@ -20,14 +22,21 @@
             {{#each playlist}}
             <div class="col library-img">
                 <div>
-                    <a href="/">
-                        <img src={{playlist_artwork}} style="width: 300px; height: 300px; object-fit:cover;" />
-                    </a>
+                    <img onclick="goToPlaylist(this.id)" id={{id}} src={{playlist_artwork}}
+                        style="width: 300px; height: 300px; object-fit:cover;" />
                     <h2 class="card-text card-text-css">{{playlist_name}}</h2>
                 </div>
+
             </div>
             {{/each}}
         </div>
     </div>
 
 </div>
+
+<script>
+    function goToPlaylist(id) {
+        let playlistId = id;
+        window.location.href = "/playlist/" + playlistId;
+    }
+</script>
