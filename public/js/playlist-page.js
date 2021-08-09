@@ -21,14 +21,15 @@ populatePlaylist = () => {
 $("#deletePlaylist-playlistPage").on("click", function () {
 
     fetch('/api/songs/playlist/' + playlistId, {
-        method: 'DELETE',
+        method: 'DELETE'
     })
-        .then(res =>
+        .then(res => {
             fetch('/api/playlist/' + playlistId, {
-                method: 'DELETE',
-            }))
-
-    alert("succesfully deleted this playlist!")
-    window.location.href = "/library";
-
+                method: 'DELETE'
+            })
+        })
+        .then(res => {
+            alert("succesfully deleted this playlist!")
+            window.location.href = "/library";
+        });
 });
