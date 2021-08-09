@@ -1,29 +1,33 @@
 <div class="library">
-    <div class="library_title">
-        {{!-- Will this require a title from my backend? --}}
-        <h2 class='libTitle'>Library</h2>
-    </div>
 
-    <div class="addPlaylist">
-        <a style="display: flex; align-items: center;" href="/spotify-auth"><span
-                style="font-size:36px; color:#f5f5f5;">Add a Playlist</span><span class="material-icons"
-                style="font-size: 90px; color: #f5f5f5;">add</span></a>
-    </div>
+    <nav class="library-nav">
 
-    <div class="playlists_groups">
-        {{#each playlist}}
-        <div>
-            <h2>{{playlist_name}}</h2>
-            <img src={{playlist_artwork}} />
+        <div class="library_title library-nav-item">
+            <h2 class='libTitle'>Library</h2>
         </div>
-        {{/each}}
+
+        <div class="addPlaylist library-nav-item">
+            <a style="display: flex; align-items: center;" href="/spotify-auth"><span
+                    style="font-size:36px; color:#f5f5f5;">Add a Playlist</span><span class="material-icons"
+                    style="font-size: 90px; color: #f5f5f5;">add</span>
+            </a>
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            {{#each playlist}}
+            <div class="col library-img">
+                <div>
+                    <a href="/">
+                        <img src={{playlist_artwork}} style="width: 350px; height: 350px; object-fit:cover;" />
+                    </a>
+                    <h2 class="card-text card-text-css">{{playlist_name}}</h2>
+                </div>
+            </div>
+            {{/each}}
+        </div>
     </div>
+
 </div>
-
-<script>
-</script>
-
-{{!-- {{#each id}}
-<h2>{{playlist_name}}</h2>
-<img src={{image_artwork}} />
-{{/each}} --}}
