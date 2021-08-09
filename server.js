@@ -8,6 +8,7 @@ const routes = require('./routes');
 // const SequilzeStore = require('connect-session-sequelize')(session.Store);
 
 
+
 const app = express()
 const port = process.env.PORT || 8888;
 
