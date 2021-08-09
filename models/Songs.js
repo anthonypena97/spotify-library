@@ -15,7 +15,7 @@ Songs.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    author: {
+    artist: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -24,15 +24,15 @@ Songs.init({
         references: {
             model: 'playlist',
             key: 'id'
-        },
-
+        }
     }
-}, {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'songs',
-})
+},
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'songs',
+    })
 
 module.exports = Songs
