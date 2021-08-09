@@ -22,16 +22,16 @@ const port = process.env.PORT || 8888;
 //     })
 // };
 
-app.use(
-    session({
-        secret: 'This is a major secret!',
-        resave: false,
-        saveUninitialized: false
-    })
-);
+// app.use(
+//     session({
+//         secret: 'This is a major secret!',
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // setting Handlebars as the default template engine.
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));

@@ -1,34 +1,76 @@
-const { spotifyApi, playlistArray } = require('sequelize');
 const router = require('express').Router();
-const db = require('../../models');
-const express = require('express');
-const exphbs = require('express-handlebars');
+const { Playlist, Songs } = require('../../models');
 
-router.get('/song-title/:songs_title', async(req, res) => {
-    try {
-        const findOneSongs = await db.PlaylistSongs.findOne({
-            where: {
-                songs_title: req.params.songs_title
-            },
-        })
-        res.json(findOneSongs)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-})
+// GET ALL SONGS
+router.get('/', function (req, res) {
+    Songs.findAll({
+        attributes: [
+            'id',
+            'song_title',
+            'artist',
+            'playlist_id'
+        ],
+    })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
-router.get('/song-author/:author', async(req, res) => {
-    try {
-        const songAuthor = await db.PlaylistSongs.findOne({
-            where: {
-                author: req.params.author
+// POST NEW SONGS
+router.post('/', function (req, res) {
+    Songs.create({
+        song_title: req.body.song_title,
+        artist: req.body.artist,
+        playlist_id: req.body.playlist_id
+    })
+        .then(dbPostData => res.json(dbPostData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+// GET SONG WHITH SAME PLALIST ID
+
+router.get('/playlist/:id', function (req, res) {
+    Songs.findAll({
+        where: {
+            playlist_id: req.params.id
+        },
+        attributes: [
+            'id',
+            'song_title',
+            'artist',
+            'playlist_id'
+        ],
+    })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+// DELETE SONGS WITHIN THE SAME PLAYLIST_ID
+router.delete('/playlist/:id', (req, res) => {
+    Songs.destroy({
+        where: {
+            playlist_id: req.params.id
+        }
+    })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'No user found with this id' });
+                return;
             }
+            res.json(dbUserData);
         })
-        res.json(songAuthor)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-})
-
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
 module.exports = router;

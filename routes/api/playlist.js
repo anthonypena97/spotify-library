@@ -1,124 +1,97 @@
 const router = require('express').Router()
-const db = require('../../models');
+const { Playlist } = require('../../models');
 
-
-
-
-// PLAYLIST LIBRARY PAGE TAKES US TO THE LIBARY PAGE NEEDS TO UPDATE THE RENDER
-router.get('/', function(req, res) {
-    res.render('/landingpage')
-});
-// PLAYLIST DISPLAY PAGE DISPLAYS OUR HANDLEBARS NEED TO UPDATE RENDER WHEN WE GET THERE
-router.get('/playlist-display', function(req, res) {
-    res.render('/playlistdisplay')
-});
-
-
-// this is how the data needs to be structured 
-// db.Playlist.create({
-
-//     "playlist_name": ,
-//     "songs": [{
-//             "songs_title": ,
-//             "author": ,
-//             "album_name": "coding"
-//         },
-//         {
-//             "songs_title": "done",
-//             "author": "luke",
-//             "album_name": "pc"
-//         }
-//     ]
-
-// })
-
-
-// STORES SONGS INTO OUR DATA BASE THIS IS THE OBJECT WE NEED ON THE FRONT END
-router.post('/save', async(req, res) => {
-
-    try {
-        const playlist = await db.Playlist.create({ playlist_name: req.body.playlist_name })
-        console.log(playlist.dataValues)
-        const songsArr = req.body.songs.map(song => ({
-            songs_title: song.songs_title,
-            author: song.author,
-            album_name: song.album_name,
-            playlist_id: playlist.dataValues.id,
-        }))
-        const song = await db.PlaylistSongs.bulkCreate(songsArr, { returning: true })
-        res.json(song)
-    } catch (error) {
-        console.log(error)
-    }
-
+// GET ALL PLAYLISTS
+router.get('/', function (req, res) {
+    Playlist.findAll({
+        attributes: [
+            'id',
+            'playlist_name',
+            'playlist_artwork'
+        ],
+    })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
-
-
-
-
-
-
-
-
-
-// FINDS ALL PLAYLIST
-router.get('/:id', async(req, res) => {
-    try {
-        const allPlaylist = await db.Playlist.findAll({
-            include: [db.PlaylistSongs]
-        })
-        res.json(allPlaylist)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-});
-// FINDS ONE PLAYLIST
-router.get('/:playlist_name', async(req, res) => {
-    try {
-        const onePlaylist = await db.Playlist.findOne({
-            where: {
-                playlist_name: req.params.playlist_name
-            },
-            include: [db.PlaylistSongs]
-        })
-        res.json(onePlaylist)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-})
-
-
-
-
-
-router.put('/update/:id', async(req, res) => {
-    try {
-        const updatePlaylistName = await db.Playlist.update({
-            where: {
-                playlist_name: req.params.playlist_name
+// GET SPECIFIC PLAYLIST
+router.get('/:id', (req, res) => {
+    Playlist.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'No user found with this id' });
+                return;
             }
+            res.json(dbUserData);
         })
-        res.json(updatePlaylistName)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-})
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
+// STORES PLAYLIST NAME AND ARTWORK INFO
+router.post('/', (req, res) => {
+    Playlist.create({
+        playlist_name: req.body.playlist_name,
+        playlist_artwork: req.body.playlist_artwork
+    })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 
-router.delete('/:playlist_name', async(req, res) => {
-    try {
-        const deletedPlaylist = await db.Playlist.destroy({
-            where: {
-                playlist_name: req.params.playlist_name
-            },
-            include: [db.PlaylistSongs]
+});
+
+// UPDATE A PLAYLIST
+router.put('/:id', (req, res) => {
+    // if req.body has exact key/value pairs to match the model, you can use `req.body` instead
+    Playlist.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbUserData => {
+            if (!dbUserData[0]) {
+                res.status(404).json({ message: 'No user found with this id' });
+                return;
+            }
+            res.json(dbUserData);
         })
-        res.json(deletedPlaylist)
-    } catch (error) {
-        res.status(400).json(error)
-    }
-})
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+// DELETE A PLAYLIST
+router.delete('/:id', (req, res) => {
+    Playlist.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'No user found with this id' });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
 
 module.exports = router;

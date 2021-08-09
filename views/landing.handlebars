@@ -1,8 +1,8 @@
 <nav class="navbar">
   <h1>Offline Beats</h1>
-  <h4>
+  {{!-- <h4>
     <button id="login">Login</button>
-  </h4>
+  </h4> --}}
 
   <div id="myModal" class="modal">
 
@@ -33,18 +33,10 @@
   </h5>
   <!-- Need to be logged in first before you see this button -->
   <a href="/library"><button id="seePlaylists-btn" class='seePlaylists'>See My Playlists!</button></a><br>
-  {{!-- <a href="/spotify-auth"><button id="spotifyAuth-btn" class='seePlaylists'>Search</button></a> --}}
 </div>
 
 
 
 <script type="text/javascript">
-  $("#seePlaylists-btn").on("click", function () {
-    $.get("/playlist-library");
-  });
-
-  $("#spotifyAuth-btn").on("click", function () {
-    window.location.href = "/spotify-auth";
-  });
 
 </script>
