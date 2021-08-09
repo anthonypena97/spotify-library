@@ -28,7 +28,14 @@
 </div>
 
 <script type="text/javascript">
+$("#playlistBtn").on("click", function () {
+    $.get("/playlistBtn");
+  });
 
+  $("#deletePlaylist").on("click", function () {
+    window.location.href = "/deletePlaylist";
+  });
+  
 </script>
 
 {{!-- window.location.href = "/spotify-playlist/" + playlistID; --}}

@@ -125,9 +125,6 @@ nav h4 a:hover {
 }
 
 
-#confirmation {
-
-}
 .playlist-head {
   display: flex;
   flex-direction: row;
@@ -234,12 +231,11 @@ nav h4 a:hover {
   }
 }
  
-/* Search URL */
-.search > div{
-  display: flex;
-  justify-content: center;
-  margin-top: 20%;
-}
-.search > label{
-  margin-right: 10px;
-}
+
+/* Library  */
+.playlist-Library
+<div class="d-flex flex-wrap"
+<div class="order-3 p-2 bd-highlight">First flex item</div>
+<div class="order-2 p-2 bd-highlight">Second flex item</div>
+<div class="order-1 p-2 bd-highlight">Third flex item</div>
+</div>
