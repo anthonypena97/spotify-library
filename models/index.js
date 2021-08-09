@@ -1,18 +1,16 @@
-const Playlist = require('./playlist')
-const PlaylistSongs = require('./songs')
+const Playlist = require('./Playlist')
+const Songs = require('./Songs')
+const UserLogin = require('./UserLogin')
 
 
-PlaylistSongs.belongsTo(Playlist, {
+Songs.belongsTo(Playlist, {
     foreignKey: 'playlist_id'
 })
 
 
-Playlist.hasMany(PlaylistSongs, {
+Playlist.hasMany(Songs, {
     foreignKey: 'playlist_id'
 })
 
 
-module.exports = {
-    Playlist,
-    PlaylistSongs
-};
+module.exports = { Playlist, Songs, UserLogin };

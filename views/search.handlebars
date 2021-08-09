@@ -1,0 +1,37 @@
+<main>
+    <nav class="library-nav">
+
+        <div class="library_title library-nav-item">
+            <a hfref="/library">
+                <h2 class='libTitle'>Library</h2>
+            </a>
+        </div>
+    </nav>
+
+    <div class='container-fluid search'>
+        <div id="searchBar" class='searchBar col-6'>
+            <input type="text" id="playlistUrlSearch" name="fname" placeholder='Playlist URL' autocomplete="off">
+            <button type="btn" class='playlistBtn' id="playlist-search-btn">Submit</button>
+        </div>
+    </div>
+
+    <div class="confirmation-box" id="confirmation" style="display:none;">
+
+        <div class='playlist-head playlist-head-item'>
+            <img id="playlist-artwork">
+            <p id="playlist-name"></p>
+            <button id='deletePlaylist' class='playlistBtn'>Delete Playlist</button>
+            <button id='savePlaylist' class='playlistBtn'>Save Playlist</button>
+        </div>
+
+        {{!-- <div id='songSearch'>
+            <input id="searchForSong" type='text' class='searchBar' placeholder='Search for a Song'>
+            <button type='submit' class='searchSubmit'>&#128269;</button>
+        </div> --}}
+
+        <div id="songs" class="song-confirmation-box">
+        </div>
+
+    </div>
+
+</main>
