@@ -1,13 +1,13 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const router = require('express').Router();
-const db = require('../models')
-    // .env file access
+const db = require('../../models')
+// .env file access
 require('dotenv').config()
 
 // declaring keys
-const redirectUri = process.env.REDIRECT_URI;
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+const redirectUri = process.env.REDIRECT_URI || "https://offline-library.herokuapp.com/callback/" || "http://localhost:8888/callback/";
+const clientId = process.env.CLIENT_ID || "47002157dbc149a2a3ea1ccacd978bd3";
+const clientSecret = process.env.CLIENT_SECRET || "818e5aba42ee47b69482fd4acd4c73cb";
 
 const scopes = ['user-read-private', 'user-read-email']
 
@@ -23,7 +23,7 @@ const spotifyApi = new SpotifyWebApi({
 // =============================================================
 
 // SPOTIFY AUTHENTICATION
-router.get('/spotify-auth', function(req, res) {
+router.get('/spotify-auth', function (req, res) {
     res.redirect(spotifyApi.createAuthorizeURL(scopes));
 
 });
@@ -60,7 +60,7 @@ router.get('/callback', (req, res) => {
             // CHANGE TO RETURN PAGE //
             res.redirect('/search');
 
-            setInterval(async() => {
+            setInterval(async () => {
                 const data = await spotifyApi.refreshAccessToken();
                 const access_token = data.body['access_token'];
 
@@ -84,13 +84,13 @@ router.get('/spotify-playlist', (req, res) => {
 })
 
 // SPOTIFY PLAYLIST CALL - PASSING IN ID FROM QUERY IN SEARCH.HANDLEBARS
-router.get('/spotify-playlist/:id', function(req, res) {
+router.get('/spotify-playlist/:id', function (req, res) {
 
     const playlistIdReq = req.params.id;
 
     // spotify api get playlist call
     spotifyApi.getPlaylist(playlistIdReq)
-        .then(function(data) {
+        .then(function (data) {
 
             let infoArray = [];
             let tracksArray = [];
@@ -141,14 +141,14 @@ router.get('/spotify-playlist/:id', function(req, res) {
             // res.render('confirmation', body);
             // return res.redirect('/confirmation');
 
-        }, function(err) {
+        }, function (err) {
             console.log('Something went wrong!', err);
         });
 });
 
 
 
-router.post('/save', async(req, res) => {
+router.post('/save', async (req, res) => {
 
     try {
         const playlist = await db.Playlist.create({ playlist_name: req.body.playlist_name })
