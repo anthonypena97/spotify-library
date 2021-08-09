@@ -5,19 +5,25 @@
     </div>
 
     <div class="addPlaylist">
-        <a style="display: flex; align-items: center;"href="/spotify-auth"><span style="font-size:36px; color:#f5f5f5;">Add a Playlist</span><span class="material-icons" style="font-size: 90px; color: #f5f5f5;">add</span></a>
+        <a style="display: flex; align-items: center;" href="/spotify-auth"><span
+                style="font-size:36px; color:#f5f5f5;">Add a Playlist</span><span class="material-icons"
+                style="font-size: 90px; color: #f5f5f5;">add</span></a>
     </div>
 
     <div class="playlists_groups">
-        {{!-- Waiting for back-end to finish linking a route to this page with json data --}}
-        {{#with albums}}
-        <h2>{{title}}</h2>
-        <img src={{image_url}} />
-        <h3>{{name}}</h3>
-        <p>{{description}}</p>
-        {{!-- image_url
-        name of album
-        description of album --}}
-        {{/with}}
+        {{#each playlist}}
+        <div>
+            <h2>{{playlist_name}}</h2>
+            <img src={{playlist_artwork}} />
+        </div>
+        {{/each}}
     </div>
 </div>
+
+<script>
+</script>
+
+{{!-- {{#each id}}
+<h2>{{playlist_name}}</h2>
+<img src={{image_artwork}} />
+{{/each}} --}}

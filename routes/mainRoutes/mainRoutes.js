@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const { Playlist, Songs } = require('../../models');
+const { post } = require('../api');
 
 // HOMEPAGE
 router.get('/', (req, res) => {
@@ -22,7 +24,22 @@ router.get('/confirmation', function (req, res) {
 
 // PLAYLIST LIBRARY PAGE
 router.get('/library', function (req, res) {
-    res.render('library');
+    Playlist.findAll({
+        attributes: [
+            'id',
+            'playlist_name',
+            'playlist_artwork'
+        ]
+    })
+        .then(dbLibraryData => {
+            playlist = dbLibraryData.map(playlist => playlist.get({ plain: true }));
+            console.log(playlist);
+            res.render('library', { playlist });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // PLAYLIST DISPLAY PAGE
