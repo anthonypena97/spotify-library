@@ -30,7 +30,7 @@ $("#playlist-search-btn").on("click", function () {
 
         // console.log('playlistObject', playlistObject);
 
-        artworkContainer.setAttribute("style", "width: 300px;height: 300px;object-fit:cover; display:block;");
+        artworkContainer.setAttribute("style", "width: 300px; height: 300px; object-fit:cover;");
         artworkContainer.setAttribute("src", artwork);
         playlistNameContainer.innerHTML = playlistName;
 
@@ -46,8 +46,11 @@ $("#playlist-search-btn").on("click", function () {
 
     });
 
-    // CLEARS OUT INPUT FIELD USED FOR PLAYLIST URL
-    document.getElementById('playlistUrlSearch').value = '';
+    // HIDES URL AFTER SEARCH QUERY IS FETCHED
+    document.querySelector('#searchBar').setAttribute("style", "display: none;");
+
+    // DISPLAYS CONFIRMATION BOX FOR USER TO REVIEW PLAYLIST RETURN
+    document.querySelector('#confirmation').setAttribute("style", "display: block;");
 
 });
 
@@ -90,5 +93,12 @@ $("#savePlaylist").on("click", function () {
         window.location.href = "/library";
 
     })
+
+});
+
+// DELETE PLAYLIST BUTTON GOES BACK TO LIBRARY AND REMOVES THE QUERY
+$("#deletePlaylist").on("click", function () {
+
+    window.location.href = "/library";
 
 });
