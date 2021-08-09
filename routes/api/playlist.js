@@ -54,6 +54,23 @@ router.post('/save', async(req, res) => {
             res.json(song);                                                                                        
 }, false);
         
+try {
+    var source = document.querySelector("#delete-Playlist").innerHTML; 
+    var template = Handlebars.compile(source); 
+    document.body.innerHTML = template();
+    var deleteButton = document.querySelector('#deletePlaylist');
+    deleteButton.addEventListener('click', function (e) {
+        const playlist = await db.Playlist.create({ playlist_name: req.body.playlist_name })
+        console.log(playlist.dataValues)
+        const songsArr = req.body.songs.map(song => ({
+            songs_title: song.songs_title,
+            author: song.author,
+            album_name: song.album_name,
+            playlist_id: playlist.dataValues.id,
+        }))
+        const song = await db.PlaylistSongs.bulkCreate(songsArr, { returning: true })
+        res.json(song);                                                                                        
+}, false);
     } catch (error) {
         console.log(error)
     }
